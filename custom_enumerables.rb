@@ -14,26 +14,25 @@ module Enumerable
   end
 
   def my_all?
-    my_each { |t| return false unless yield t}
+    my_each { |t| return false unless yield t }
     true
   end
 
-  def my_any?(tester='')
+  def my_any?(tester = '')
     if block_given?
-      my_each { |t| return true if yield t}
-      false
+      my_each { |t| return true if yield t }
     else
       my_each { |t| return true if tester === t }
-      false
     end
+    false
   end
 
   def my_none?(tester = '')
     if block_given?
-      my_each { |t| return false if yield t}
+      my_each { |t| return false if yield t }
     elsif tester != ''
       my_each { |t| return false if tester === t }
-    elsif my_any? { |t| t == true}
+    elsif my_any? { |t| t == true }
       return false
     end
     true
@@ -75,10 +74,10 @@ end
 
 # None?
 p %w{ant bear cat}.none? { |word| word.length == 5 }
-p %w{ant bear cat}.none?(/d/) 
+p %w{ant bear cat}.none?(/d/)
 p [nil, false, true].none?
 p %w{ant bear cat}.my_none? { |word| word.length == 5 }
-p %w{ant bear cat}.my_none?(/d/) 
+p %w{ant bear cat}.my_none?(/d/)
 p [nil, false, true].my_none?
 
 # Count
