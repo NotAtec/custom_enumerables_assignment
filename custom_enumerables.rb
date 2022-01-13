@@ -17,6 +17,16 @@ module Enumerable
     my_each { |t| return false unless yield t}
     true
   end
+
+  def my_any?(tester='')
+    if tester == ''
+      my_each { |t| return true if yield t}
+      false
+    else
+      my_each { |t| return true if tester === t }
+      false
+    end
+  end
 end
 
 # Each
@@ -38,12 +48,19 @@ end
 # p numbers.my_select(&:even?)
 
 # All?
-p %w[ant bear cat].all? { |word| word.length >= 3 }
-p %w[ant bear cat].my_all? { |word| word.length >= 3 }
+# p %w[ant bear cat].all? { |word| word.length >= 3 }
+# p %w[ant bear cat].my_all? { |word| word.length >= 3 }
 
-p %w[ant bear cat].all? { |word| word.length >= 4 }
-p %w[ant bear cat].my_all? { |word| word.length >= 4 }
+# p %w[ant bear cat].all? { |word| word.length >= 4 }
+# p %w[ant bear cat].my_all? { |word| word.length >= 4 }
+
 # Any?
+p %w[ant bear cat].any? { |word| word.length >= 3 }
+p %w[ant bear cat].my_any? { |word| word.length >= 3 }
+p %w[ant bear cat].any?(/d/)
+p %w[ant bear cat].my_any?(/d/)
+p [].any?
+p [].my_any?
 
 # None?
 
