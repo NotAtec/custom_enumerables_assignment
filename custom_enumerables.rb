@@ -28,6 +28,18 @@ end
 # puts ""
 
 # Select
-numbers = [1, 2, 3, 4, 5]
-p numbers.select(&:even?)
-p numbers.my_select(&:even?)
+# numbers = [1, 2, 3, 4, 5]
+# p numbers.select(&:even?)
+# p numbers.my_select(&:even?)
+
+# All?
+
+# Any?
+
+# None?
+
+# Count
+
+# Map
+
+# Inject
