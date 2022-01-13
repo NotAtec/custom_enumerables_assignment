@@ -1,11 +1,10 @@
 module Enumerable
   def my_each
-    self.length.times { |i| yield self[i] }
-    yield # Numbers value [index]
+    length.times { |i| yield self[i] }
   end
 
   def my_each_with_index
-    self.length.times { |i| yield(self[i], i) }
+    length.times { |i| yield(self[i], i) }
   end
 end
 
