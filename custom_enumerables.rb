@@ -9,8 +9,13 @@ module Enumerable
 
   def my_select
     to_return = []
-    my_each { |s| to_return << s if yield s}
+    my_each { |s| to_return << s if yield s }
     to_return
+  end
+
+  def my_all?
+    my_each { |t| return false unless yield t}
+    true
   end
 end
 
@@ -33,7 +38,11 @@ end
 # p numbers.my_select(&:even?)
 
 # All?
+p %w[ant bear cat].all? { |word| word.length >= 3 }
+p %w[ant bear cat].my_all? { |word| word.length >= 3 }
 
+p %w[ant bear cat].all? { |word| word.length >= 4 }
+p %w[ant bear cat].my_all? { |word| word.length >= 4 }
 # Any?
 
 # None?
