@@ -67,16 +67,32 @@ module Enumerable
       arr = to_a
     end
 
-    if start != Integer
-      memo = arr.shift
-    else 
-      memo = start
+    memo = inject_set_memo(start, arr)
+    arr.shift if memo == arr[0]
+    enum = inject_set_enum(start, enumerator)
+
+    if block_given?
+      arr.my_each { |val| memo = yield(memo, val) }
+    else
+      arr.my_each { |val| memo = memo.send(enum, val)}
     end
-    
-     arr.my_each do |val|
-      memo = yield(memo, val)
-     end
-     memo
+    memo
+  end
+
+  def inject_set_memo(start, arr)
+    if Integer === start
+      start
+    else
+      arr[0]
+    end
+  end
+
+  def inject_set_enum(start, enumerator)
+    if Symbol === start
+      start
+    else
+      enumerator
+    end
   end
 end
 
@@ -143,8 +159,7 @@ p (5..10).inject(:+)
 p (5..10).inject { |sum, n| sum + n }
 p (5..10).inject(1, :*)
 p (5..10).inject(1) { |product, n| product * n }
-puts ''
-# p (5..10).my_inject(:+)
+p (5..10).my_inject(:+)
 p (5..10).my_inject { |sum, n| sum + n }
-# p (5..10).my_inject(1, :*)
+p (5..10).my_inject(1, :*)
 p (5..10).my_inject(1) { |product, n| product * n }
