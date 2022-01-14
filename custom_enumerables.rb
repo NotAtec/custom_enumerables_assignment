@@ -59,6 +59,25 @@ module Enumerable
     arr.my_each { |val| to_return << yield(val) }
     to_return
   end
+
+  def my_inject(start = '', enumerator = '')
+    if self === Array || self === Hash
+      arr = self
+    else
+      arr = to_a
+    end
+
+    if start != Integer
+      memo = arr.shift
+    else 
+      memo = start
+    end
+    
+     arr.my_each do |val|
+      memo = yield(memo, val)
+     end
+     memo
+  end
 end
 
 # Each
@@ -113,9 +132,19 @@ end
 # p ary.my_count { |x| x%2==0 }
 
 # Map
-p (1..4).map { |i| i*i }
-p (1..4).map { "cat"  }
+# p (1..4).map { |i| i*i }
+# p (1..4).map { "cat"  }
 
-p (1..4).my_map { |i| i*i }
-p (1..4).my_map { "cat"  }
+# p (1..4).my_map { |i| i*i }
+# p (1..4).my_map { "cat"  }
+
 # Inject
+p (5..10).inject(:+)
+p (5..10).inject { |sum, n| sum + n }
+p (5..10).inject(1, :*)
+p (5..10).inject(1) { |product, n| product * n }
+puts ''
+# p (5..10).my_inject(:+)
+p (5..10).my_inject { |sum, n| sum + n }
+# p (5..10).my_inject(1, :*)
+p (5..10).my_inject(1) { |product, n| product * n }
