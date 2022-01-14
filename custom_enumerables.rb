@@ -47,6 +47,18 @@ module Enumerable
       length
     end
   end
+
+  def my_map
+    if self === Array || self === Hash
+      arr = self
+    else
+      arr = to_a
+    end
+
+    to_return = []
+    arr.my_each { |val| to_return << yield(val) }
+    to_return
+  end
 end
 
 # Each
@@ -91,15 +103,19 @@ end
 # p [nil, false, true].my_none?
 
 # Count
-p ary = [1, 2, 4, 2]
+# p ary = [1, 2, 4, 2]
 
-p ary.count
-p ary.count(2)
-p ary.count { |x| x%2==0 }
-p ary.my_count
-p ary.my_count(2)
-p ary.my_count { |x| x%2==0 }
+# p ary.count
+# p ary.count(2)
+# p ary.count { |x| x%2==0 }
+# p ary.my_count
+# p ary.my_count(2)
+# p ary.my_count { |x| x%2==0 }
 
 # Map
+p (1..4).map { |i| i*i }
+p (1..4).map { "cat"  }
 
+p (1..4).my_map { |i| i*i }
+p (1..4).my_map { "cat"  }
 # Inject
