@@ -37,6 +37,16 @@ module Enumerable
     end
     true
   end
+
+  def my_count(tester = '')
+    if block_given?
+      my_select { |t| yield t }.length
+    elsif tester != ''
+      my_select { |t| t == tester}.length
+    else
+      length
+    end
+  end
 end
 
 # Each
@@ -73,14 +83,22 @@ end
 # p [].my_any?
 
 # None?
-p %w{ant bear cat}.none? { |word| word.length == 5 }
-p %w{ant bear cat}.none?(/d/)
-p [nil, false, true].none?
-p %w{ant bear cat}.my_none? { |word| word.length == 5 }
-p %w{ant bear cat}.my_none?(/d/)
-p [nil, false, true].my_none?
+# p %w{ant bear cat}.none? { |word| word.length == 5 }
+# p %w{ant bear cat}.none?(/d/)
+# p [nil, false, true].none?
+# p %w{ant bear cat}.my_none? { |word| word.length == 5 }
+# p %w{ant bear cat}.my_none?(/d/)
+# p [nil, false, true].my_none?
 
 # Count
+p ary = [1, 2, 4, 2]
+
+p ary.count
+p ary.count(2)
+p ary.count { |x| x%2==0 }
+p ary.my_count
+p ary.my_count(2)
+p ary.my_count { |x| x%2==0 }
 
 # Map
 
