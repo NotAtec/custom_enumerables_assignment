@@ -77,4 +77,4 @@ require_relative 'custom_enumerables'
 
 # Map, but Proc
 test_proc = Proc.new { |v| v.to_s }
-p (1..4).my_map_proc(test_proc)
+p (1..4).my_map(test_proc)
