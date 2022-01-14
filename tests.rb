@@ -69,8 +69,12 @@ require_relative 'custom_enumerables'
 # p (5..10).my_inject(1) { |product, n| product * n }
 
 # Test Inject
-def multiply_els(arr)
-  arr.my_inject(:*)
-end
+# def multiply_els(arr)
+#   arr.my_inject(:*)
+# end
 
-p multiply_els([2,4,5])
+# p multiply_els([2,4,5])
+
+# Map, but Proc
+test_proc = Proc.new { |v| v.to_s }
+p (1..4).my_map_proc(test_proc)

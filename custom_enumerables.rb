@@ -60,6 +60,18 @@ module Enumerable
     to_return
   end
 
+  def my_map_proc(proc)
+    if self === Array || self === Hash
+      arr = self
+    else
+      arr = to_a
+    end
+
+    to_return = []
+    arr.my_each { |val| to_return << proc.call(val) }
+    to_return
+  end
+  
   def my_inject(start = '', enumerator = '')
     if self === Array || self === Hash
       arr = self
